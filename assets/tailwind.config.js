@@ -22,6 +22,12 @@ module.exports = {
       },
       backgroundImage: {
         'gradient': 'linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(242, 237, 237) 100%)'
+      },
+      borderRadius: {
+        navbar: '20px'
+      },
+      colors: {
+        'navbar-icon': 'rgba(255, 255, 255, 0.1)'
       }
     },
   },
