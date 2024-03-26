@@ -4,4 +4,22 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+.leaf {
+  background-image: linear-gradient(0deg, rgb(71, 68, 68) 0%, rgba(49, 47, 47, 0.475) 52.7027%, rgba(0, 0, 0, 0) 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.left-box {
+  place-content: center;
+  align-items: center;
+  background: linear-gradient(270deg, rgba(212, 212, 212, 0.21) -13.9932%, rgb(189, 194, 188) 100%);
+  border-radius: 14px;
+  display: flex;
+  flex: 0 0 auto;
+  flex-flow: column;
+  gap: 20px;
+  overflow: hidden;
+  position: relative;
+}
 
