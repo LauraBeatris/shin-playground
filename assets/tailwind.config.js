@@ -27,7 +27,8 @@ module.exports = {
         navbar: '20px'
       },
       colors: {
-        'navbar-icon': 'rgba(255, 255, 255, 0.1)'
+        'navbar-icon': 'rgba(255, 255, 255, 0.1)',
+        'navbar-hover': 'rgb(106, 106, 106)'
       }
     },
   },

@@ -18,6 +18,8 @@ defmodule ShinPlaygroundWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive
+    live "/oidc", HomeLive, :oidc
+    live "/saml", HomeLive, :saml
   end
 
   # Other scopes may use custom stacks.
