@@ -15,11 +15,9 @@ defmodule ShinPlaygroundWeb.HomeLive do
 
   defp apply_action(socket, :oidc, _params) do
     socket
-    |> assign(:page_title, "OIDC")
   end
 
   defp apply_action(socket, :saml, _params) do
     socket
-    |> assign(:page_title, "SAML")
   end
 end
