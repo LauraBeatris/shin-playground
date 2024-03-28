@@ -1,6 +1,8 @@
 defmodule ShinPlaygroundWeb.HomeLive do
   use ShinPlaygroundWeb, :live_view
 
+  import ShinPlaygroundWeb.HomeLive.NavbarComponent
+
   @impl true
   def mount(_params, _session, socket) do
     socket = socket |> assign(live_action: :saml)
