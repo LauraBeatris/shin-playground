@@ -7,7 +7,7 @@ defmodule ShinPlaygroundWeb.HomeLive.NavbarComponent do
 
   def navbar(assigns) do
     ~H"""
-    <nav class="mt-4 flex items-start place-content-start	min-h-min bg-gray-800 rounded-navbar shadow-md p-2 gap-1">
+    <nav class="mt-4 flex items-start place-content-start	min-h-min bg-gray-800/95 rounded-navbar shadow-md p-2 gap-1">
       <.link
         patch={~p"/oidc"}
         class="flex p-1 gap-3 items-center rounded-lg  transition duration-300 ease-in-out hover:bg-navbar-hover hover:bg-opacity-35"

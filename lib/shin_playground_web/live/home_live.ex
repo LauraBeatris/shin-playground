@@ -9,21 +9,36 @@ defmodule ShinPlaygroundWeb.HomeLive do
 
     socket =
       socket
-      |> assign(live_action: :saml, form: form, saml_response: nil)
+      |> assign(
+        live_action: :saml,
+        form: form,
+        saml_response: nil
+      )
 
     {:ok, socket}
   end
 
   @impl true
   def handle_event("decode", %{"saml_xml" => saml_xml}, socket) do
-    saml_response =
+    decoded_result =
       String.replace(saml_xml, ~r/\r?\n|\r/, "")
       |> String.replace(~r/>\s+</, "><")
       |> ShinAuth.SAML.decode_saml_response()
 
+    saml_response =
+      case decoded_result do
+        {:error, %ShinAuth.SAML.Response.Error{message: message}} -> {:error, message}
+        saml_response -> saml_response
+      end
+
     socket =
       socket |> assign(saml_response: saml_response)
 
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("show_example", _, socket) do
     {:noreply, socket}
   end
 

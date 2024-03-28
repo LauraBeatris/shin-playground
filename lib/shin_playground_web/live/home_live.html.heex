@@ -1,5 +1,4 @@
 <div class="w-full mx-auto gap-2 flex flex-col items-center justify-center px-6">
-  <.navbar />
 
   <section :if={@live_action == :oidc}>
     OIDC
@@ -7,29 +6,55 @@
 
   <section
     :if={@live_action == :saml}
-    class="flex flex-col w-1/2 p-5 mt-4 isolate aspect-video rounded-xl bg-white/5 shadow-sm ring-1 ring-black/5"
+    class="flex flex-col w-full max-w-[600px] p-5 mt-4 gap-2 isolate rounded-xl bg-white/25 shadow-sm ring-1 ring-black/5"
   >
     <.form for={@form}>
-      <label
-        for="saml_xml"
-        class="block mb-2  text-gray-600 text-md tracking-normal"
-      >
-        You can paste requests, responses, raw XML:
-      </label>
+      <header class="flex w-full justify-between items-start">
+        <label
+          for="saml_xml"
+          class="block leading-loose font-serif font-bold text-gray-600 text-lg tracking-normal"
+        >
+          You can paste requests, responses, raw XML
+        </label>
+
+        <button phx-click="show_example" type="button" class="font-serif font-bold text-lg rounded-md px-2 bg-white/25 shadow-sm ring-1 ring-black/5">
+          Show example
+        </button>
+      </header>
 
       <.input
         data-gramm_editor="false"
         id="saml_xml"
-        class="resize-none rounded-md block w-full text-sm text-gray-900 bg-gray-50 border border-gray-300"
         type="textarea"
         placeholder="Paste SAML request or SAML response here"
         field={@form[:saml_xml]}
         phx-change="decode"
+        phx-debounce={2000}
       />
     </.form>
 
-    <div :if={@saml_response}>
-      <%= inspect @saml_response %>
+    <div class="w-full flex flex-col gap-2">
+      <h2 class="text-gray-600 font-bold text-lg font-serif tracking-normal">SAML Info</h2>
+
+      <div class=" text-gray-600 w-full rounded-md border border-gray-300 bg-white/50 shadow-sm">
+        <h3 class="p-3 w-full  border-b border-gray-300">Common</h3>
+
+        <ul class="w-full p-3">
+          <li class="w-full flex justify-between border-b border-gray-300 pb-2">
+            <strong class="text-gray-600">Type</strong>
+
+            <span class="font-serif">-</span>
+          </li>
+
+          <li class="w-full flex justify-between border-b border-gray-300 py-2">
+            <strong class="text-gray-600">Version</strong>
+
+            <span class="font-serif">-</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
+
+  <.navbar />
 </div>
