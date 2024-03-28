@@ -5,10 +5,9 @@ defmodule ShinPlaygroundWeb.HomeLive.NavbarComponent do
     {:ok, socket}
   end
 
-  # TODO: Add transitions on hover + use slots / attrs
   def navbar(assigns) do
     ~H"""
-    <nav class="mt-4 flex items-start place-content-start	min-h-min bg-gray-800 rounded-navbar shadow-md px-2 py-3 gap-1">
+    <nav class="mt-4 flex items-start place-content-start	min-h-min bg-gray-800 rounded-navbar shadow-md p-2 gap-1">
       <.link
         patch={~p"/oidc"}
         class="flex p-1 gap-3 items-center rounded-lg  transition duration-300 ease-in-out hover:bg-navbar-hover hover:bg-opacity-35"
@@ -18,7 +17,7 @@ defmodule ShinPlaygroundWeb.HomeLive.NavbarComponent do
         </div>
 
         <div class="flex">
-          <span class="text-white font-light">OpenID Connect</span>
+          <span class="text-white">OpenID Connect</span>
         </div>
       </.link>
 
@@ -31,7 +30,7 @@ defmodule ShinPlaygroundWeb.HomeLive.NavbarComponent do
         </div>
 
         <div class="flex">
-          <span class="text-white font-light">SAML</span>
+          <span class="text-white">SAML</span>
         </div>
       </.link>
     </nav>

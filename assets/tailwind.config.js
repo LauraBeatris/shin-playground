@@ -12,6 +12,9 @@ module.exports = {
     "../lib/shin_playground_web/**/*.*ex"
   ],
   theme: {
+    container: {
+      center: true,
+    },
     extend: {
       colors: {
         brand: "#FD4F00",
