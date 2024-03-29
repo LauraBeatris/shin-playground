@@ -108,7 +108,7 @@ defmodule ShinPlaygroundWeb.HomeLive.SamlInfoComponent do
   attr :label, :string, required: true
   attr :value, :string, required: true
 
-  defp list_item(assigns) do
+  def list_item(assigns) do
     ~H"""
     <li class="gap-5 w-full flex justify-between border-b last:border-b-0 border-gray-300 first:pt-0 py-2">
       <strong class="text-gray-600"><%= @label %></strong>
