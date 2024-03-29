@@ -11,7 +11,9 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="bg-gradient relative w-full min-h-full text-sm font-[450] lg:pb-0 bg-custom bg-cover bg-no-repeat bg-fixed">
+  <body class="relative w-full min-h-full text-sm font-[450] bg-gray-800 lg:p-2">
+   <div class="w-full h-full bg-gradient bg-custom bg-cover bg-no-repeat bg-fixed rounded-lg">
     <%= @inner_content %>
+   </div>
   </body>
 </html>

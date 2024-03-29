@@ -21,7 +21,7 @@ defmodule ShinPlaygroundWeb.HomeLive.SamlInfoComponent do
           :if={@type == :response}
           phx-click="show_example"
           type="button"
-          class="font-bold rounded-md p-1 bg-white/25 shadow-sm ring-1 ring-black/5"
+          class="border border-gray-300 font-bold rounded-md px-2 py-1 bg-white/25"
         >
           View more
         </button>
@@ -112,7 +112,7 @@ defmodule ShinPlaygroundWeb.HomeLive.SamlInfoComponent do
     <li class="gap-5 w-full flex justify-between border-b last:border-b-0 border-gray-300 first:pt-0 py-2">
       <strong class="text-gray-600"><%= @label %></strong>
 
-      <span><%= @value %></span>
+      <span class="truncate"><%= @value %></span>
     </li>
     """
   end
