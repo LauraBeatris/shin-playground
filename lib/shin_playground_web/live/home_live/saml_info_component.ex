@@ -19,9 +19,10 @@ defmodule ShinPlaygroundWeb.HomeLive.SamlInfoComponent do
 
         <button
           :if={@type == :response}
-          phx-click="show_example"
+          disabled={@malformed_xml_error}
           type="button"
-          class="border border-gray-300 font-bold rounded-md px-2 py-1 bg-white/25"
+          phx-click={show_modal("saml-response")}
+          class="disabled:opacity-50 border border-gray-300 font-bold rounded-md px-2 py-1 bg-white/25"
         >
           View more
         </button>
