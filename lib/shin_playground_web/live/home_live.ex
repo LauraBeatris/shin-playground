@@ -29,8 +29,15 @@ defmodule ShinPlaygroundWeb.HomeLive do
 
     saml_response =
       case decoded_result do
-        {:error, %ShinAuth.SAML.Response.Error{message: message}} -> {:error, message}
-        saml_response -> saml_response
+        {:error, %ShinAuth.SAML.Response.Error{message: message}} ->
+          socket = socket |> put_flash(:error, message)
+
+          IO.inspect(message)
+
+          {:noreply, socket}
+
+        {:ok, value} ->
+          value
       end
 
     socket =
@@ -44,8 +51,15 @@ defmodule ShinPlaygroundWeb.HomeLive do
     xml_file_path = Application.app_dir(:shin_playground, "priv/static/saml_example.xml")
 
     case File.read(xml_file_path) do
-      {:ok, file_contents} ->
-        socket = socket |> assign(saml_xml: file_contents)
+      {:ok, saml_xml} ->
+        {:ok, saml_response} =
+          String.replace(saml_xml, ~r/\r?\n|\r/, "")
+          |> String.replace(~r/>\s+</, "><")
+          |> ShinAuth.SAML.decode_saml_response()
+
+        socket =
+          socket
+          |> assign(saml_xml: saml_xml, saml_response: saml_response)
 
         {:noreply, socket}
 

@@ -1,22 +1,24 @@
-<div class="w-full mx-auto gap-2 flex flex-col items-center justify-center px-6">
+<div class="w-full mx-auto gap-2 flex flex-col items-center justify-center px-1 lg:px-6">
+  <.navbar />
+
   <section :if={@live_action == :oidc}>
     OIDC
   </section>
 
   <section
     :if={@live_action == :saml}
-    class="flex flex-col w-full max-w-[600px] p-5 mt-4 gap-2 isolate rounded-xl bg-white/25 shadow-sm ring-1 ring-black/5"
+    class="flex flex-col w-full max-w-[600px] p-5 mt-4 gap-5 isolate rounded-xl bg-white/25 shadow-sm ring-1 ring-black/5"
   >
     <.form for={@form}>
-      <header class="flex w-full justify-between items-end pb-1">
-        <label for="saml_xml" class="block font-bold text-gray-600 text-md">
+      <header class="flex w-full justify-between items-end">
+        <label for="saml_xml" class="font-bold text-gray-600 text-md">
           You can paste requests, responses, raw XML
         </label>
 
         <button
           phx-click="show_example"
           type="button"
-          class="font-serif font-bold text-lg rounded-md px-2 bg-white/25 shadow-sm ring-1 ring-black/5"
+          class="font-bold rounded-md p-1 bg-white/25 shadow-sm ring-1 ring-black/5"
         >
           Show example
         </button>
@@ -29,33 +31,71 @@
         placeholder="Paste SAML request or SAML response here"
         field={@form[:saml_xml]}
         phx-change="decode"
-        phx-debounce={2000}
         value={@saml_xml}
       />
     </.form>
 
     <div class="w-full flex flex-col gap-2">
-      <h2 class="text-gray-600 font-bold text-md tracking-normal">SAML Info</h2>
+      <header class="flex w-full justify-between items-end">
+        <label for="saml_xml" class="block font-bold text-gray-600 text-md">
+          SAML Info
+        </label>
 
-      <div class=" text-gray-600 w-full rounded-md border border-gray-300 bg-white/50 shadow-sm">
+        <button
+          phx-click="show_example"
+          type="button"
+          class="font-bold rounded-md p-1 bg-white/25 shadow-sm ring-1 ring-black/5"
+        >
+          View more
+        </button>
+      </header>
+
+      <div class="text-gray-600 w-full rounded-md border border-gray-300 bg-white/50 shadow-sm">
         <h3 class="p-3 w-full  border-b border-gray-300">Common</h3>
 
         <ul class="w-full p-3">
           <li class="w-full flex justify-between border-b border-gray-300 pb-2">
             <strong class="text-gray-600">Type</strong>
 
-            <span class="font-serif">-</span>
+            <span :if={@saml_response == nil} class="font-serif">-</span>
+
+            <span :if={is_map(@saml_response)}>Response</span>
           </li>
 
           <li class="w-full flex justify-between border-b border-gray-300 py-2">
             <strong class="text-gray-600">Version</strong>
 
-            <span class="font-serif">-</span>
+            <span :if={@saml_response == nil} class="font-serif">-</span>
+
+            <span :if={is_map(@saml_response)}><%= @saml_response.common.version %></span>
+          </li>
+
+            <li class="w-full flex justify-between border-b border-gray-300 py-2">
+            <strong class="text-gray-600">Issuer</strong>
+
+            <span :if={@saml_response == nil} class="font-serif">-</span>
+
+            <span :if={is_map(@saml_response)}><%= @saml_response.common.issuer %></span>
+          </li>
+
+            <li class="w-full flex justify-between border-b border-gray-300 py-2">
+            <strong class="text-gray-600">Destination</strong>
+
+            <span :if={@saml_response == nil} class="font-serif">-</span>
+
+            <span :if={is_map(@saml_response)}><%= @saml_response.common.issue_instant %></span>
+          </li>
+
+            <li class="w-full flex justify-between border-b border-gray-300 py-2">
+            <strong class="text-gray-600">IssueInstant</strong>
+
+            <span :if={@saml_response == nil} class="font-serif">-</span>
+
+            <span :if={is_map(@saml_response)}><%= @saml_response.common.issue_instant %></span>
           </li>
         </ul>
       </div>
     </div>
   </section>
 
-  <.navbar />
 </div>
