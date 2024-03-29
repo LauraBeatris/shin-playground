@@ -13,37 +13,52 @@ defmodule ShinPlaygroundWeb.HomeLive do
         live_action: :saml,
         form: form,
         saml_xml: nil,
-        saml_response: nil
+        saml_response: nil,
+        malformed_xml_error: nil
       )
 
     {:ok, socket}
   end
 
   @impl true
+  def handle_event("decode", %{"saml_xml" => ""}, socket) do
+    socket =
+      socket
+      |> assign(
+        saml_xml: nil,
+        saml_response: nil,
+        malformed_xml_error: nil
+      )
+
+    {:noreply, socket}
+  end
+
+  @impl true
   def handle_event("decode", %{"saml_xml" => saml_xml}, socket) do
-    # TODO - Accept also SAML requests
     decoded_result =
       String.replace(saml_xml, ~r/\r?\n|\r/, "")
       |> String.replace(~r/>\s+</, "><")
       |> ShinAuth.SAML.decode_saml_response()
 
-    saml_response =
-      case decoded_result do
-        {:error, %ShinAuth.SAML.Response.Error{message: message}} ->
-          socket = socket |> put_flash(:error, message)
+    case decoded_result do
+      {:error, %ShinAuth.SAML.Response.Error{message: message}} ->
+        socket =
+          socket
+          |> assign(malformed_xml_error: message)
 
-          IO.inspect(message)
+        {:noreply, socket}
 
-          {:noreply, socket}
+      {:ok, value} ->
+        socket =
+          socket
+          |> assign(
+            saml_response: value,
+            saml_xml: saml_xml,
+            malformed_xml_error: nil
+          )
 
-        {:ok, value} ->
-          value
-      end
-
-    socket =
-      socket |> assign(saml_response: saml_response, saml_xml: saml_xml)
-
-    {:noreply, socket}
+        {:noreply, socket}
+    end
   end
 
   @impl true
@@ -59,12 +74,18 @@ defmodule ShinPlaygroundWeb.HomeLive do
 
         socket =
           socket
-          |> assign(saml_xml: saml_xml, saml_response: saml_response)
+          |> assign(
+            saml_xml: saml_xml,
+            saml_response: saml_response,
+            malformed_xml_error: nil
+          )
 
         {:noreply, socket}
 
-      {:error, _reason} ->
-        socket = socket |> put_flash(:error, "Error reading XML example file.")
+      {:error, reason} ->
+        socket =
+          socket
+          |> assign(malformed_xml_error: reason)
 
         {:noreply, socket}
     end

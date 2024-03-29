@@ -32,6 +32,7 @@
         field={@form[:saml_xml]}
         phx-change="decode"
         value={@saml_xml}
+        spellcheck="false"
       />
     </.form>
 
@@ -50,7 +51,16 @@
         </button>
       </header>
 
-      <div class="text-gray-600 w-full rounded-md border border-gray-300 bg-white/50 shadow-sm">
+      <div class="relative text-gray-600 z-10 w-full rounded-md border border-gray-300 bg-white/50 shadow-sm">
+        <div
+          :if={@malformed_xml_error}
+          class="absolute w-full h-full z-20 bg-white bg-clip-padding bg-opacity-15 flex justify-center items-center gap-1"
+          style="backdrop-filter: blur(2px);"
+        >
+          <.icon name="hero-exclamation-triangle" class="text-red-500" />
+          <p class="text-red-400 text-xl font-serif font-bold">Malformed SAML response</p>
+        </div>
+
         <h3 class="p-3 w-full  border-b border-gray-300">Common</h3>
 
         <ul class="w-full p-3">
@@ -70,7 +80,7 @@
             <span :if={is_map(@saml_response)}><%= @saml_response.common.version %></span>
           </li>
 
-            <li class="w-full flex justify-between border-b border-gray-300 py-2">
+          <li class="w-full flex justify-between border-b border-gray-300 py-2">
             <strong class="text-gray-600">Issuer</strong>
 
             <span :if={@saml_response == nil} class="font-serif">-</span>
@@ -78,7 +88,7 @@
             <span :if={is_map(@saml_response)}><%= @saml_response.common.issuer %></span>
           </li>
 
-            <li class="w-full flex justify-between border-b border-gray-300 py-2">
+          <li class="w-full flex justify-between border-b border-gray-300 py-2">
             <strong class="text-gray-600">Destination</strong>
 
             <span :if={@saml_response == nil} class="font-serif">-</span>
@@ -86,7 +96,7 @@
             <span :if={is_map(@saml_response)}><%= @saml_response.common.issue_instant %></span>
           </li>
 
-            <li class="w-full flex justify-between border-b border-gray-300 py-2">
+          <li class="w-full flex justify-between border-b border-gray-300 py-2">
             <strong class="text-gray-600">IssueInstant</strong>
 
             <span :if={@saml_response == nil} class="font-serif">-</span>
@@ -97,5 +107,4 @@
       </div>
     </div>
   </section>
-
 </div>
