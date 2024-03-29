@@ -12,6 +12,7 @@ defmodule ShinPlaygroundWeb.HomeLive do
       |> assign(
         live_action: :saml,
         form: form,
+        saml_xml: nil,
         saml_response: nil
       )
 
@@ -20,6 +21,7 @@ defmodule ShinPlaygroundWeb.HomeLive do
 
   @impl true
   def handle_event("decode", %{"saml_xml" => saml_xml}, socket) do
+    # TODO - Accept also SAML requests
     decoded_result =
       String.replace(saml_xml, ~r/\r?\n|\r/, "")
       |> String.replace(~r/>\s+</, "><")
@@ -32,14 +34,26 @@ defmodule ShinPlaygroundWeb.HomeLive do
       end
 
     socket =
-      socket |> assign(saml_response: saml_response)
+      socket |> assign(saml_response: saml_response, saml_xml: saml_xml)
 
     {:noreply, socket}
   end
 
   @impl true
   def handle_event("show_example", _, socket) do
-    {:noreply, socket}
+    xml_file_path = Application.app_dir(:shin_playground, "priv/static/saml_example.xml")
+
+    case File.read(xml_file_path) do
+      {:ok, file_contents} ->
+        socket = socket |> assign(saml_xml: file_contents)
+
+        {:noreply, socket}
+
+      {:error, _reason} ->
+        socket = socket |> put_flash(:error, "Error reading XML example file.")
+
+        {:noreply, socket}
+    end
   end
 
   @impl true

@@ -1,0 +1,103 @@
+<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="_8f3b2c4d9e7a8b5c6d21" Version="2.0" IssueInstant="2014-10-14T14:32:17Z" Destination="https://app.shin.com/tester/samlp">
+    <saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+        urn:example.shin.name
+    </saml:Issuer>
+    <samlp:Status>
+        <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/>
+    </samlp:Status>
+    <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Version="2.0" ID="_5VK7LT7FliUkkaQuW6r4brF0DG5E3X76" IssueInstant="2014-10-14T14:32:17.251Z">
+        <saml:Issuer>
+            urn:example.shin.com
+        </saml:Issuer>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <Reference URI="#_5VK7LT7FliUkkaQuW6r4brF0DG5E3X76">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                        <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                    <DigestValue>
+                        ZDkfGO3H1Tu50hawzQVjsACzJwc=
+                    </DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+                1Fgpt7AaHcME2gTA158achvGQVqDwHSHsHF3/a5s7djeO1AaZ84Gz5eiWD+cdIz6hoT1j2v/7Qtfj5bsMNxulBnSzfL4TT4++AK/zFO4ad2mwABFjMMNiogwwT3tzy3aRwjgSfl3VKESoz3Zp8KL/JNm/TRKz95TD7H6WnfKZoLwErGzNw6gVs1y9XYxIEg46GzUb07g23TFmrv3wHlx2TpKUN/ne4Z28KAQzXqVyykJVaKQ/gbBNC/8AQKlol8fLGSheOKQ0vgEE1vFnVVCEmp30YapdKeWW2qcqHb7Oqdm+9b2mOUkqbaxH5ixBbYaqZaQCt5WF4P5BxnMe4Bp8w==
+            </SignatureValue>
+            <KeyInfo>
+                <X509Data>
+                    <X509Certificate>
+                        MIIDODCCAiCgAwIBAgIJAN7O9hef05RJMA0GCSqGSIb3DQEBBQUAMBwxGjAYBgNVBAMTEW1hdHVnaXQuYXV0aDAuY29tMB4XDTEzMDYxNjEzMjQwNloXDTI3MDIyMzEzMjQwNlowHDEaMBgGA1UEAxMRbWF0dWdpdC5hdXRoMC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQD8kEfEcLiyMK0q4E4xT/mglcXsf9oCWdTjB0vswFXQPCDgUk5daJmO4oRrCIuWgtChDyMc5M5MTexqrCntQlKpnexkzDxCvPX/IRJstjJDSH+WXljRYDbXTgAZAjjjAKqDBIeUWaw1FcUy3SOmQVtyUdfjXNqLzxKS8SUWYY3Ia6PT/uoUjUFmUuJEFpBlB79GW+Tv/ZidY53gHyhEYOBzm1vKZS1vtPfxxpBqu7Vkf+5lq3RYjuoVUYN03TIJveaa7BBL0je8z7UvvOGgrGuodSKHneq7ueex4OCscCJZbK7MlfbmFiuSniVCg/yMrx/okDme38sOXH1A/zJu2lYpAgMBAAGjfTB7MB0GA1UdDgQWBBQL3cuDXNXu4USrpv44dzfGyHIXDTBMBgNVHSMERTBDgBQL3cuDXNXu4USrpv44dzfGyHIXDaEgpB4wHDEaMBgGA1UEAxMRbWF0dWdpdC5hdXRoMC5jb22CCQDezvYXn9OUSTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQCAtAmKHoX7OerzFUQ0Ojrg9C1uzT6fOLIlXyaDswk2tLE6ftFhSiVzT1TtgTFv2o6IA47tW6bqL7t6Z5JN/L8cno+kxeKOgPz2CvbUTJmtROvFV/TDkFsYmFJZ8+6nZOAtXRZPWFpa6KE4Lc5+7J94sX2AiYPFCnXRvZGMhJ6qtc+jh54QEIlxZtkxWUBGs2fhOQm+Ux0uy1qxSzhp3lmvNa79KdvmQirSitDovyidalpwX750WGNfQoISe94e3clWa4uKXgZ7AYmhd1w4kNs7seFdtvCcqQJrKYT2cBTINztL6SeqeF/xC//lGDo9UJic4pcrqj1P3WGHYIslOWBQ
+                    </X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+        <saml:Subject>
+            <saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified">
+                gitlab|175880
+            </saml:NameID>
+            <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+                <saml:SubjectConfirmationData NotOnOrAfter="2014-10-14T15:32:17.251Z" Recipient="https://app.shin.com/tester/samlp"/>
+            </saml:SubjectConfirmation>
+        </saml:Subject>
+        <saml:Conditions NotBefore="2014-10-14T14:32:17.251Z" NotOnOrAfter="2014-10-14T15:32:17.251Z">
+            <saml:AudienceRestriction>
+                <saml:Audience>
+                    urn:foo
+                </saml:Audience>
+            </saml:AudienceRestriction>
+        </saml:Conditions>
+        <saml:AttributeStatement xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <saml:Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier">
+                <saml:AttributeValue xsi:type="xs:anyType">
+                    gitlab|175880
+                </saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress">
+                <saml:AttributeValue xsi:type="xs:anyType">
+                    laura@foo-corp.com
+                </saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name">
+                <saml:AttributeValue xsi:type="xs:anyType">
+                    Laura Beatris
+                </saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn">
+                <saml:AttributeValue xsi:type="xs:anyType">
+                  laura@foo-corp.com
+                </saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="http://schemas.shin.com/identities/default/access_token">
+                <saml:AttributeValue xsi:type="xs:anyType">
+                    3a7d0dfeffe12812c37112daa830abef570089b4
+                </saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="http://schemas.shin.com/identities/default/provider">
+                <saml:AttributeValue xsi:type="xs:anyType">
+                    gitlab
+                </saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="http://schemas.shin.com/identities/default/connection">
+                <saml:AttributeValue xsi:type="xs:anyType">
+                    gitlab
+                </saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="http://schemas.shin.com/identities/default/isSocial">
+                <saml:AttributeValue xsi:type="xs:anyType">
+                    true
+                </saml:AttributeValue>
+            </saml:Attribute>
+        </saml:AttributeStatement>
+        <saml:AuthnStatement AuthnInstant="2014-10-14T14:32:17.251Z">
+            <saml:AuthnContext>
+                <saml:AuthnContextClassRef>
+                    urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified
+                </saml:AuthnContextClassRef>
+            </saml:AuthnContext>
+        </saml:AuthnStatement>
+    </saml:Assertion>
+</samlp:Response>

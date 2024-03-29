@@ -1,5 +1,4 @@
 <div class="w-full mx-auto gap-2 flex flex-col items-center justify-center px-6">
-
   <section :if={@live_action == :oidc}>
     OIDC
   </section>
@@ -9,15 +8,16 @@
     class="flex flex-col w-full max-w-[600px] p-5 mt-4 gap-2 isolate rounded-xl bg-white/25 shadow-sm ring-1 ring-black/5"
   >
     <.form for={@form}>
-      <header class="flex w-full justify-between items-start">
-        <label
-          for="saml_xml"
-          class="block leading-loose font-serif font-bold text-gray-600 text-lg tracking-normal"
-        >
+      <header class="flex w-full justify-between items-end pb-1">
+        <label for="saml_xml" class="block font-bold text-gray-600 text-md">
           You can paste requests, responses, raw XML
         </label>
 
-        <button phx-click="show_example" type="button" class="font-serif font-bold text-lg rounded-md px-2 bg-white/25 shadow-sm ring-1 ring-black/5">
+        <button
+          phx-click="show_example"
+          type="button"
+          class="font-serif font-bold text-lg rounded-md px-2 bg-white/25 shadow-sm ring-1 ring-black/5"
+        >
           Show example
         </button>
       </header>
@@ -30,11 +30,12 @@
         field={@form[:saml_xml]}
         phx-change="decode"
         phx-debounce={2000}
+        value={@saml_xml}
       />
     </.form>
 
     <div class="w-full flex flex-col gap-2">
-      <h2 class="text-gray-600 font-bold text-lg font-serif tracking-normal">SAML Info</h2>
+      <h2 class="text-gray-600 font-bold text-md tracking-normal">SAML Info</h2>
 
       <div class=" text-gray-600 w-full rounded-md border border-gray-300 bg-white/50 shadow-sm">
         <h3 class="p-3 w-full  border-b border-gray-300">Common</h3>
