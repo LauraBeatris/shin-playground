@@ -12,7 +12,7 @@
     <.form for={@form}>
       <header class="flex w-full justify-between items-end">
         <label for="saml_xml" class="font-bold text-gray-600 text-md">
-          You can paste requests, responses, raw XML
+          Raw XML of SAML request or SAML response
         </label>
 
         <button
@@ -36,75 +36,10 @@
       />
     </.form>
 
-    <div class="w-full flex flex-col gap-2">
-      <header class="flex w-full justify-between items-end">
-        <label for="saml_xml" class="block font-bold text-gray-600 text-md">
-          SAML Info
-        </label>
-
-        <button
-          phx-click="show_example"
-          type="button"
-          class="font-bold rounded-md p-1 bg-white/25 shadow-sm ring-1 ring-black/5"
-        >
-          View more
-        </button>
-      </header>
-
-      <div class="relative text-gray-600 z-10 w-full rounded-md border border-gray-300 bg-white/50 shadow-sm">
-        <div
-          :if={@malformed_xml_error}
-          class="absolute w-full h-full z-20 bg-white bg-clip-padding bg-opacity-15 flex justify-center items-center gap-1"
-          style="backdrop-filter: blur(2px);"
-        >
-          <.icon name="hero-exclamation-triangle" class="text-red-500" />
-          <p class="text-red-400 text-xl font-serif font-bold">Malformed SAML response</p>
-        </div>
-
-        <h3 class="p-3 w-full  border-b border-gray-300">Common</h3>
-
-        <ul class="w-full p-3">
-          <li class="w-full flex justify-between border-b border-gray-300 pb-2">
-            <strong class="text-gray-600">Type</strong>
-
-            <span :if={@saml_response == nil} class="font-serif">-</span>
-
-            <span :if={is_map(@saml_response)}>Response</span>
-          </li>
-
-          <li class="w-full flex justify-between border-b border-gray-300 py-2">
-            <strong class="text-gray-600">Version</strong>
-
-            <span :if={@saml_response == nil} class="font-serif">-</span>
-
-            <span :if={is_map(@saml_response)}><%= @saml_response.common.version %></span>
-          </li>
-
-          <li class="w-full flex justify-between border-b border-gray-300 py-2">
-            <strong class="text-gray-600">Issuer</strong>
-
-            <span :if={@saml_response == nil} class="font-serif">-</span>
-
-            <span :if={is_map(@saml_response)}><%= @saml_response.common.issuer %></span>
-          </li>
-
-          <li class="w-full flex justify-between border-b border-gray-300 py-2">
-            <strong class="text-gray-600">Destination</strong>
-
-            <span :if={@saml_response == nil} class="font-serif">-</span>
-
-            <span :if={is_map(@saml_response)}><%= @saml_response.common.issue_instant %></span>
-          </li>
-
-          <li class="w-full flex justify-between border-b border-gray-300 py-2">
-            <strong class="text-gray-600">IssueInstant</strong>
-
-            <span :if={@saml_response == nil} class="font-serif">-</span>
-
-            <span :if={is_map(@saml_response)}><%= @saml_response.common.issue_instant %></span>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <.saml_info
+      type={@type}
+      malformed_xml_error={@malformed_xml_error}
+      decoded_saml={@decoded_saml}
+    />
   </section>
 </div>

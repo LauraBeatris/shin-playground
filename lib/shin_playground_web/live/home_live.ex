@@ -2,6 +2,7 @@ defmodule ShinPlaygroundWeb.HomeLive do
   use ShinPlaygroundWeb, :live_view
 
   import ShinPlaygroundWeb.HomeLive.NavbarComponent
+  import ShinPlaygroundWeb.HomeLive.SamlInfoComponent
 
   @impl true
   def mount(_params, _session, socket) do
@@ -13,8 +14,9 @@ defmodule ShinPlaygroundWeb.HomeLive do
         live_action: :saml,
         form: form,
         saml_xml: nil,
-        saml_response: nil,
-        malformed_xml_error: nil
+        decoded_saml: nil,
+        malformed_xml_error: nil,
+        type: nil
       )
 
     {:ok, socket}
@@ -25,8 +27,9 @@ defmodule ShinPlaygroundWeb.HomeLive do
     socket =
       socket
       |> assign(
+        type: nil,
         saml_xml: nil,
-        saml_response: nil,
+        decoded_saml: nil,
         malformed_xml_error: nil
       )
 
@@ -35,26 +38,48 @@ defmodule ShinPlaygroundWeb.HomeLive do
 
   @impl true
   def handle_event("decode", %{"saml_xml" => saml_xml}, socket) do
-    decoded_result =
-      String.replace(saml_xml, ~r/\r?\n|\r/, "")
-      |> String.replace(~r/>\s+</, "><")
-      |> ShinAuth.SAML.decode_saml_response()
+    sanitized_xml = sanitize_xml_input(saml_xml)
 
-    case decoded_result do
-      {:error, %ShinAuth.SAML.Response.Error{message: message}} ->
-        socket =
-          socket
-          |> assign(malformed_xml_error: message)
+    with {:ok, type} <- get_saml_xml_type(sanitized_xml) do
+      decoded_xml = decode_xml_input(sanitized_xml, type)
 
-        {:noreply, socket}
+      case decoded_xml do
+        {:error, %ShinAuth.SAML.Response.Error{}} ->
+          socket =
+            socket
+            |> assign(malformed_xml_error: "Malformed SAML response")
 
-      {:ok, value} ->
+          {:noreply, socket}
+
+        {:error, %ShinAuth.SAML.Request.Error{}} ->
+          socket =
+            socket
+            |> assign(malformed_xml_error: "Malformed SAML request")
+
+          {:noreply, socket}
+
+        {:ok, value} ->
+          IO.inspect(value)
+
+          socket =
+            socket
+            |> assign(
+              type: type,
+              decoded_saml: value,
+              saml_xml: saml_xml,
+              malformed_xml_error: nil
+            )
+
+          {:noreply, socket}
+      end
+    else
+      {:error, _} ->
         socket =
           socket
           |> assign(
-            saml_response: value,
-            saml_xml: saml_xml,
-            malformed_xml_error: nil
+            decoded_saml: nil,
+            saml_xml: nil,
+            malformed_xml_error: "Invalid SAML type"
           )
 
         {:noreply, socket}
@@ -75,8 +100,9 @@ defmodule ShinPlaygroundWeb.HomeLive do
         socket =
           socket
           |> assign(
+            type: :response,
             saml_xml: saml_xml,
-            saml_response: saml_response,
+            decoded_saml: saml_response,
             malformed_xml_error: nil
           )
 
@@ -94,6 +120,27 @@ defmodule ShinPlaygroundWeb.HomeLive do
   @impl true
   def handle_params(params, _url, socket) do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  end
+
+  defp sanitize_xml_input(xml) do
+    xml
+    |> String.replace(~r/\r?\n|\r/, "")
+    |> String.replace(~r/>\s+</, "><")
+  end
+
+  defp get_saml_xml_type(xml) do
+    cond do
+      String.contains?(xml, "samlp:AuthnRequest") -> {:ok, :request}
+      String.contains?(xml, "samlp:Response") -> {:ok, :response}
+      true -> {:error, :unknown}
+    end
+  end
+
+  defp decode_xml_input(xml, type) when type == :request or type == :response do
+    case type do
+      :request -> ShinAuth.SAML.decode_saml_request(xml)
+      :response -> ShinAuth.SAML.decode_saml_response(xml)
+    end
   end
 
   defp apply_action(socket, :oidc, _params) do
