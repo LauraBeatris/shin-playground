@@ -12,7 +12,7 @@ defmodule ShinPlaygroundWeb.SAML.SAMLInfoComponent do
   def saml_info(assigns) do
     ~H"""
     <div class="w-full flex flex-col gap-2">
-      <header class="flex w-full justify-between items-end">
+      <header class="flex w-full justify-between items-center">
         <h3 class="block font-bold text-gray-600 text-md">
           SAML Info
         </h3>

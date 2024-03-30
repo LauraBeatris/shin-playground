@@ -7,17 +7,21 @@ defmodule ShinPlaygroundWeb.HomeLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    form = to_form(%{"saml_xml" => ""})
+    form_saml = to_form(%{"saml_xml" => ""})
+    form_oidc = to_form(%{"discovery_endpoint" => ""})
 
     socket =
       socket
       |> assign(
-        live_action: :saml,
-        form: form,
+        live_action: socket.assigns.live_action || :saml,
+        form_saml: form_saml,
+        form_oidc: form_oidc,
         saml_xml: nil,
         decoded_saml: nil,
         malformed_xml_error: nil,
-        type: nil
+        decoded_oidc_provider_configuration: nil,
+        type: nil,
+        oidc_loading: false
       )
 
     {:ok, socket}

@@ -1,14 +1,14 @@
 <.navbar />
 
 <%= if @live_action == :oidc do %>
-  <.live_component module={OIDCActionComponent} id="oidc" />
+  <.live_component form={@form_oidc} module={OIDCActionComponent} id="oidc" decoded_oidc_provider_configuration={@decoded_oidc_provider_configuration} />
 <% end %>
 
 <%= if @live_action == :saml do %>
   <.live_component
     saml_xml={@saml_xml}
     decoded_saml={@decoded_saml}
-    form={@form}
+    form={@form_saml}
     type={@type}
     malformed_xml_error={@malformed_xml_error}
     module={SAMLActionComponent}
