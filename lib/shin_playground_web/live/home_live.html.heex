@@ -1,8 +1,8 @@
 <.navbar />
 
-<section :if={@live_action == :oidc}>
-  OIDC
-</section>
+<%= if @live_action == :oidc do %>
+  <.live_component module={OIDCActionComponent} id="oidc" />
+<% end %>
 
 <%= if @live_action == :saml do %>
   <.live_component

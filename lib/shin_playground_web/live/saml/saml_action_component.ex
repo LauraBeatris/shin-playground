@@ -3,22 +3,6 @@ defmodule ShinPlaygroundWeb.SAML.SAMLActionComponent do
 
   import ShinPlaygroundWeb.SAML.SAMLInfoComponent
 
-  def mount(_params, _session, socket) do
-    form = to_form(%{"saml_xml" => ""})
-
-    socket =
-      socket
-      |> assign(
-        form: form,
-        saml_xml: nil,
-        decoded_saml: nil,
-        malformed_xml_error: nil,
-        type: nil
-      )
-
-    {:ok, socket}
-  end
-
   def handle_event("decode", %{"saml_xml" => ""}, socket) do
     socket =
       socket

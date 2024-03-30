@@ -3,6 +3,7 @@ defmodule ShinPlaygroundWeb.HomeLive do
 
   import ShinPlaygroundWeb.HomeLive.NavbarComponent
   alias ShinPlaygroundWeb.SAML.SAMLActionComponent
+  alias ShinPlaygroundWeb.OIDC.OIDCActionComponent
 
   @impl true
   def mount(_params, _session, socket) do
