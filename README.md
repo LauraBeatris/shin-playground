@@ -3,7 +3,7 @@
 🍀 A UI playground to utilize the auth utilities from [`shin-auth`](https://github.com/LauraBeatris/shin) package.
 
 <p align="center">
-  <a href="https://shin-auth.fly.dev/">
+  <a href="shin.howauth.com/">
     <img width="500" src="./.github/images/saml.png">
   </a>
 </p>
