@@ -1,100 +1,17 @@
-<div class="w-full mx-auto gap-2 flex flex-col items-center justify-center px-1 lg:px-6">
-  <.navbar />
+<.navbar />
 
-  <section :if={@live_action == :oidc}>
-    OIDC
-  </section>
+<section :if={@live_action == :oidc}>
+  OIDC
+</section>
 
-  <section
-    :if={@live_action == :saml}
-    class="flex flex-col w-full max-w-[600px] p-5 mt-4 gap-5 isolate rounded-xl bg-white/25 shadow-sm ring-1 ring-black/5"
-  >
-    <.form for={@form}>
-      <header class="flex w-full justify-between items-end">
-        <label for="saml_xml" class="font-bold text-gray-600 text-md">
-          Raw XML of SAML request or SAML response
-        </label>
-
-        <button
-          phx-click="show_example"
-          type="button"
-          class="border border-gray-300 font-bold rounded-md px-2 py-1 bg-white/25"
-        >
-          Show example
-        </button>
-      </header>
-
-      <.input
-        data-gramm_editor="false"
-        id="saml_xml"
-        type="textarea"
-        placeholder="Paste SAML request or SAML response here"
-        field={@form[:saml_xml]}
-        phx-change="decode"
-        value={@saml_xml}
-        spellcheck="false"
-      />
-    </.form>
-
-    <.saml_info
-      type={@type}
-      malformed_xml_error={@malformed_xml_error}
-      decoded_saml={@decoded_saml}
-    />
-  </section>
-</div>
-
-<.modal :if={is_map(@decoded_saml) and @type == :response} id="saml-response">
-  <div class="relative text-gray-600 z-10 w-full rounded-md border border-gray-300 bg-white/50 shadow-sm">
-    <h3 class="p-3 w-full  border-b border-gray-300">Common</h3>
-
-    <ul class="w-full p-3">
-      <.list_item value={@decoded_saml.common.version} label="Version" />
-      <.list_item value={@decoded_saml.common.issuer} label="Issuer" />
-      <.list_item value={@decoded_saml.common.issue_instant} label="IssueInstant" />
-    </ul>
-  </div>
-
-  <div class="mt-4 relative text-gray-600 z-10 w-full rounded-md border border-gray-300 bg-white/50 shadow-sm">
-    <h3 class="p-3 w-full  border-b border-gray-300">Status</h3>
-
-    <ul class={[
-      "w-full p-3",
-      @decoded_saml.status.status == :success && "text-green-600",
-      @decoded_saml.status.status == :failure && "text-red-600"
-    ]}>
-      <.list_item
-        value={
-          case @decoded_saml.status.status do
-            :success -> "Success"
-            :failure -> "Failure"
-            _ -> "Unknown"
-          end
-        }
-        label="Status"
-      />
-    </ul>
-  </div>
-
-  <div class="mt-4 relative text-gray-600 z-10 w-full rounded-md border border-gray-300 bg-white/50 shadow-sm">
-    <h3 class="p-3 w-full  border-b border-gray-300">Conditions</h3>
-
-    <ul class="w-full p-3">
-      <.list_item value={@decoded_saml.conditions.not_before} label="NotBefore" />
-      <.list_item value={@decoded_saml.conditions.not_on_or_after} label="NotOnOrAfter" />
-    </ul>
-  </div>
-
-  <div class="mt-4 relative text-gray-600 z-10 w-full rounded-md border border-gray-300 bg-white/50 shadow-sm">
-    <h3 class="p-3 w-full  border-b border-gray-300">Attributes</h3>
-    <ul class="w-full p-3">
-      <%= for attribute <- @decoded_saml.attributes do %>
-        <li class="gap-5 w-full flex justify-between border-b last:border-b-0 border-gray-300 first:pt-0 py-2">
-          <strong class="text-gray-600 max-w-44 truncate"><%= attribute.name %></strong>
-
-          <span class="truncate"><%= attribute.value %></span>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</.modal>
+<%= if @live_action == :saml do %>
+  <.live_component
+    saml_xml={@saml_xml}
+    decoded_saml={@decoded_saml}
+    form={@form}
+    type={@type}
+    malformed_xml_error={@malformed_xml_error}
+    module={SAMLActionComponent}
+    id="saml"
+  />
+<% end %>

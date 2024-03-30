@@ -1,4 +1,4 @@
-defmodule ShinPlaygroundWeb.HomeLive.SamlInfoComponent do
+defmodule ShinPlaygroundWeb.SAML.SAMLInfoComponent do
   use ShinPlaygroundWeb, :live_component
 
   def mount(_params, _session, socket) do
