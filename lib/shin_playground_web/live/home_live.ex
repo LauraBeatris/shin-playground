@@ -12,6 +12,7 @@ defmodule ShinPlaygroundWeb.HomeLive do
     socket =
       socket
       |> assign(
+        live_action: :saml,
         form: form,
         saml_xml: nil,
         decoded_saml: nil,
