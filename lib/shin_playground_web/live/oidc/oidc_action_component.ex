@@ -136,6 +136,90 @@ defmodule ShinPlaygroundWeb.OIDC.OIDCActionComponent do
     """
   end
 
+  defp empty_state(assigns) do
+    ~H"""
+    <ul class="w-full p-3">
+      <li class="w-full flex justify-between border-b border-gray-300 pb-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+
+      <li class="w-full flex justify-between border-b border-gray-300 py-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+
+      <li class="w-full flex justify-between border-b border-gray-300 py-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+
+      <li class="w-full flex justify-between border-b border-gray-300 py-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+
+      <li class="w-full flex justify-between border-b border-gray-300 py-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+
+      <li class="w-full flex justify-between border-b border-gray-300 py-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+
+      <li class="w-full flex justify-between border-b border-gray-300 py-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+
+      <li class="w-full flex justify-between border-b border-gray-300 py-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+
+      <li class="w-full flex justify-between border-b border-gray-300 py-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+
+      <li class="w-full flex justify-between border-b border-gray-300 py-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+
+      <li class="w-full flex justify-between border-b border-gray-300 py-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+
+      <li class="w-full flex justify-between border-b border-gray-300 py-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+
+      <li class="w-full flex justify-between border-b border-gray-300 py-2">
+        <strong class="text-gray-600">-</strong>
+
+        <span class="font-serif">-</span>
+      </li>
+    </ul>
+    """
+  end
+
   defp show_loader() do
     JS.hide(%JS{},
       to: "#oidc_empty_state"
