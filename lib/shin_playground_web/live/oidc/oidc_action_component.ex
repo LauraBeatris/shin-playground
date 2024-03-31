@@ -25,8 +25,6 @@ defmodule ShinPlaygroundWeb.OIDC.OIDCActionComponent do
   def update(%{action: {:load_provider_configuration, discovery_endpoint}}, socket) do
     case ShinAuth.OIDC.load_provider_configuration(discovery_endpoint) do
       {:ok, value} ->
-        IO.inspect(value)
-
         socket =
           socket
           |> assign(decoded_oidc_provider_configuration: value)
@@ -89,36 +87,63 @@ defmodule ShinPlaygroundWeb.OIDC.OIDCActionComponent do
   def oidc_provider_configuration(assigns) do
     ~H"""
     <ul class="w-full h-full p-3">
-      <.list_item value={@provider_configuration.issuer} label="Issuer" />
       <.list_item
+        :if={@provider_configuration.issuer}
+        value={@provider_configuration.issuer}
+        label="Issuer"
+      />
+      <.list_item
+        :if={@provider_configuration.authorization_endpoint}
         value={@provider_configuration.authorization_endpoint}
         label="Authorization Endpoint"
       />
-      <.list_item value={@provider_configuration.token_endpoint} label="Token Endpoint" />
       <.list_item
+        :if={@provider_configuration.token_endpoint}
+        value={@provider_configuration.token_endpoint}
+        label="Token Endpoint"
+      />
+      <.list_item
+        :if={@provider_configuration.introspection_endpoint}
         value={@provider_configuration.introspection_endpoint}
         label="Introspection Endpoint"
       />
-      <.list_item value={@provider_configuration.userinfo_endpoint} label="User Info Endpoint" />
       <.list_item
+        :if={@provider_configuration.userinfo_endpoint}
+        value={@provider_configuration.userinfo_endpoint}
+        label="User Info Endpoint"
+      />
+      <.list_item
+        :if={@provider_configuration.end_session_endpoint}
         value={@provider_configuration.end_session_endpoint}
         label="Ping End Session Endpoint"
       />
-      <.list_item value={@provider_configuration.revocation_endpoint} label="Revocation Endpoint" />
-      <.list_item value={@provider_configuration.jwks_uri} label="JWKS URI" />
       <.list_item
+        :if={@provider_configuration.revocation_endpoint}
+        value={@provider_configuration.revocation_endpoint}
+        label="Revocation Endpoint"
+      />
+      <.list_item
+        :if={@provider_configuration.jwks_uri}
+        value={@provider_configuration.jwks_uri}
+        label="JWKS URI"
+      />
+      <.list_item
+        :if={@provider_configuration.scopes_supported}
         value={Enum.join(@provider_configuration.scopes_supported, ", ")}
         label="Scopes Supported"
       />
       <.list_item
+        :if={@provider_configuration.response_types_supported}
         value={Enum.join(@provider_configuration.response_types_supported, ", ")}
         label="Response Types Supported"
       />
       <.list_item
+        :if={@provider_configuration.grant_types_supported}
         value={Enum.join(@provider_configuration.grant_types_supported, ", ")}
         label="Grant Types Supported"
       />
       <.list_item
+        :if={@provider_configuration.subject_types_supported}
         value={Enum.join(@provider_configuration.subject_types_supported, ", ")}
         label="Subject Types Supported"
       />
