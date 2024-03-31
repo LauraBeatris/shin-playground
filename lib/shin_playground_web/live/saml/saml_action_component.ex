@@ -38,8 +38,6 @@ defmodule ShinPlaygroundWeb.SAML.SAMLActionComponent do
           {:noreply, socket}
 
         {:ok, value} ->
-          IO.inspect(value)
-
           socket =
             socket
             |> assign(

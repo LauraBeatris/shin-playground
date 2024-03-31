@@ -1,5 +1,5 @@
 <section class="min-h-[657px] flex flex-col w-full max-w-[600px] p-5 mt-4 gap-5 isolate rounded-xl bg-white/25 shadow-sm ring-1 ring-black/5">
-  <.form for={@form} phx-target={@myself} phx-submit="validate">
+  <.form for={@form} phx-target={@myself} phx-submit="load-provider-configuration">
     <header class="flex w-full justify-between items-center">
       <label for="discovery-endpoint" class="font-bold text-gray-600 text-md">
         Discovery Endpoint
@@ -9,7 +9,7 @@
         type="submit"
         class="border border-gray-300 font-bold rounded-md px-2 py-1 bg-white/25"
       >
-        Validate provider configuration
+        Load provider configuration
       </button>
     </header>
 
@@ -23,25 +23,29 @@
     />
   </.form>
 
-
   <div
-    :if={is_nil(@decoded_oidc_provider_configuration)}
+    :if={is_nil(@decoded_oidc_provider_configuration) or @oidc_provider_configuration_error}
     class="relative text-gray-600 z-10 w-full flex-grow rounded-md border border-gray-300 bg-white/50 shadow-sm"
   >
     <div
       class="absolute w-full h-full z-20 bg-white bg-clip-padding bg-opacity-15 flex justify-center items-center gap-1"
       style="backdrop-filter: blur(3px);"
     >
-      <.loader id="oidc_loader"/>
+      <%= if @oidc_provider_configuration_error do %>
+        <.icon name="hero-exclamation-triangle" class="text-red-500" />
+        <p class="text-red-400 text-md"><%= @oidc_provider_configuration_error %></p>
+      <% else %>
+        <.loader id="oidc_loader" />
 
-      <div id="oidc_empty_state" class="flex w-full h-full justify-center items-center">
-        <.icon name="hero-arrow-long-up" />
-        <p class="text-md">Enter Discovery Endpoint to visualize configuration</p>
-      </div>
+        <div id="oidc_empty_state" class="flex w-full h-full justify-center items-center">
+          <.icon name="hero-arrow-long-up" />
+          <p class="text-md">Enter Discovery Endpoint to visualize configuration</p>
+        </div>
+      <% end %>
     </div>
   </div>
 
-   <div
+  <div
     :if={@decoded_oidc_provider_configuration}
     class="relative text-gray-600 z-10 w-full flex-grow rounded-md border border-gray-300 bg-white/50 shadow-sm"
   >
@@ -49,7 +53,7 @@
       class="absolute w-full h-full z-20 bg-white bg-clip-padding bg-opacity-15 flex justify-center items-center gap-1"
       style="backdrop-filter: blur(3px);"
     >
-      <%= inspect @decoded_oidc_provider_configuration %>
+      <.oidc_provider_configuration provider_configuration={@decoded_oidc_provider_configuration} />
     </div>
   </div>
 </section>

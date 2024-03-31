@@ -1,17 +1,23 @@
 <.navbar />
 
 <%= if @live_action == :oidc do %>
-  <.live_component form={@form_oidc} module={OIDCActionComponent} id="oidc" decoded_oidc_provider_configuration={@decoded_oidc_provider_configuration} />
+  <.live_component
+    decoded_oidc_provider_configuration={@decoded_oidc_provider_configuration}
+    form={@form_oidc}
+    id="oidc"
+    module={OIDCActionComponent}
+    oidc_provider_configuration_error={@oidc_provider_configuration_error}
+  />
 <% end %>
 
 <%= if @live_action == :saml do %>
   <.live_component
-    saml_xml={@saml_xml}
     decoded_saml={@decoded_saml}
     form={@form_saml}
-    type={@type}
+    id="saml"
     malformed_xml_error={@malformed_xml_error}
     module={SAMLActionComponent}
-    id="saml"
+    saml_xml={@saml_xml}
+    type={@type}
   />
 <% end %>

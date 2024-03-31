@@ -20,6 +20,7 @@ defmodule ShinPlaygroundWeb.HomeLive do
         decoded_saml: nil,
         malformed_xml_error: nil,
         decoded_oidc_provider_configuration: nil,
+        oidc_provider_configuration_error: nil,
         type: nil,
         oidc_loading: false
       )
