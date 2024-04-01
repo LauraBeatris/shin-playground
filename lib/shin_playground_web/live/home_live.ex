@@ -21,8 +21,7 @@ defmodule ShinPlaygroundWeb.HomeLive do
         malformed_xml_error: nil,
         decoded_oidc_provider_configuration: nil,
         oidc_provider_configuration_error: nil,
-        type: nil,
-        oidc_loading: false
+        type: nil
       )
 
     {:ok, socket}
